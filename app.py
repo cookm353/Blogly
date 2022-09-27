@@ -32,17 +32,27 @@ def show_users():
     
     return render_template('index.html', users=users)
     
-# @app.route('/users/new')
-# def add_user():
-#     """
-#     Form for adding new users
-#     """
-#     pass
+@app.route('/users/new')
+def add_user():
+    """
+    Form for adding new users
+    """
+    return render_template('add_user.html')
 
-# @app.route('/users/new', methods=['POST'])
-# def create_user():
-#     """Process user add"""
-#     ...
+@app.route('/users/new', methods=['POST'])
+def create_user():
+    """Process adding new user"""
+    firstName =  request.form['firstName']
+    lastName = request.form['lastName']
+    imgUrl = request.form['imgURL']
+    
+    if imgUrl != '':
+        User.add_user(firstName, lastName, imgUrl)
+    else:
+        User.add_user(firstName, lastName)
+    
+    print(firstName, lastName, imgUrl)
+    return redirect('/users')
     
 @app.route('/users/<user_id>')
 def get_user(user_id):
@@ -62,9 +72,7 @@ def get_user(user_id):
 #     ...
     
 def main():
-    # db.create_all()
-    print(db)
-    print(db.app)
+    ...
     
 if __name__ == "__main__":
     main()
