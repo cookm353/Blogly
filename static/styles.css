@@ -1,8 +1,58 @@
+/* General Styles */
+
 .flex {
     display: flex;
+    flex-direction: row;
+}
+
+button {
+    border-radius: 20%;
+}
+
+/* Users List Styles */
+
+#addUserBttn {
+    background-color: rgb(100, 100, 100);
+    color: white;
+}
+
+/* Add User Form Styles */
+
+form[class='flex'] {
+    flex-direction: column
+}
+
+#submitNewUserBttn {
+    width: fit-content;
+    background-color: rgb(100, 100, 100);
+    color: white;
+}
+
+/* User Details Styles */
+
+#nameAndBttns {
+    flex-direction: column;
+}
+
+#editDeleteBttns {
+    justify-content: space-evenly;
 }
 
 #userImg {
-    width: 150px;
-    height: 150px;
+    width: 125px;
+    height: 125px;
+}
+
+#editDeleteBttns > * {
+    color: white;
+    border: none;
+    height: 2em;
+}
+
+#editUser {
+    background-color: blue;
+}
+
+#deleteUser {
+    background-color: red;
 }
