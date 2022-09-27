@@ -21,26 +21,45 @@ def index():
     """
     Redirect to list of users (for now)
     """
-    return render_template('index.html')
+    return redirect('/users')
     
 @app.route('/users')
 def show_users():
     """
     Show all users
     """
-    pass
+    users = User.query.all()
     
-@app.route('/users/new')
-def add_user():
-    """
-    Form for adding new users
-    """
-    pass
+    return render_template('index.html', users=users)
+    
+# @app.route('/users/new')
+# def add_user():
+#     """
+#     Form for adding new users
+#     """
+#     pass
 
-@app.route('/users/new', methods=['POST'])
-def create_user():
-    ...
+# @app.route('/users/new', methods=['POST'])
+# def create_user():
+#     """Process user add"""
+#     ...
     
+@app.route('/users/<user_id>')
+def get_user(user_id):
+    user = User.query.get_or_404(user_id)
+    return render_template('user_details.html', user=user)
+    
+# @app.route('/users/<user_id>/edit')
+# def show_update_user_form(user_id):
+#     ...
+    
+# @app.route('/users/<user_id>/edit', methods=['POST'])
+# def update_user(user_id):
+#     ...
+    
+# @app.route('/users/<user_id>/delete', methods=['POST'])
+# def delete_user(user_id):
+#     ...
     
 def main():
     # db.create_all()

@@ -20,5 +20,13 @@ class User(db.Model):
     last_name = db.Column(db.String(20),
                           nullable=False)
     
-    image_url = db.Column(db.String(50),
-                          nullable=True)
+    img_url = db.Column(db.String,
+                          nullable=True,
+                          default="static/default_user.png")
+
+    @classmethod
+    def get_user_by_id(cls, id):
+        return cls.query.filter_by(id=id).all()
+        
+    def __repr__(self):
+        return f"<User id>={self.id} First name={self.first_name} last name={self.last_name} image url={self.img_url}"
