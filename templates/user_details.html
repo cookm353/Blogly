@@ -5,10 +5,12 @@
 {% block content %}
 <div class="flex mainDiv">
     <img id="userImg" src='../{{user.img_url}}'' alt="">
-    <div class="flex">
-        <h2>{{user.first_name}} {{user.last_name}}</h2>
-        <button id="editUser">Edit</button> &nbsp;
-        <button id="deleteUser">Delete</button>
+    <div class="flex" id="nameAndBttns">
+        <h1>{{user.first_name}} {{user.last_name}}</h1>
+        <div class="flex" id="editDeleteBttns">
+            <button id="editUser">Edit</button> &nbsp;
+            <button id="deleteUser">Delete</button>
+        </div>
     </div>
 </div>
 {% endblock %}

@@ -59,9 +59,10 @@ def get_user(user_id):
     user = User.query.get_or_404(user_id)
     return render_template('user_details.html', user=user)
     
-# @app.route('/users/<user_id>/edit')
-# def show_update_user_form(user_id):
-#     ...
+@app.route('/users/<user_id>/edit')
+def show_update_user_form(user_id):
+    
+    return render_template('edit_user.html')
     
 # @app.route('/users/<user_id>/edit', methods=['POST'])
 # def update_user(user_id):

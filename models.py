@@ -47,6 +47,11 @@ class User(db.Model):
         db.session.add(new_user)
         db.session.commit()
         
+    @staticmethod
+    def edit_user():
+        
+        ...
+        
 def main():
     ...
     

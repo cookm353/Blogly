@@ -5,6 +5,11 @@
     flex-direction: row;
 }
 
+a {
+    color: white;
+    background-color: aqua;
+}
+
 button {
     border-radius: 20%;
 }
@@ -55,4 +60,13 @@ form[class='flex'] {
 
 #deleteUser {
     background-color: red;
+}
+
+/* Edit User Styles */
+#cancelEditsBttn {
+
+}
+
+#saveEditsBttn {
+
 }

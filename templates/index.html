@@ -9,5 +9,7 @@
         <li><a>{{user.first_name}} {{user.last_name}}</a></li>
     {% endfor %}
 </ul>
-<button>Add user</button>
+<form action="/users/new">
+    <button id="addUserBttn" >Add user</button>
+</form>
 {% endblock %}
