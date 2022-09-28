@@ -2,7 +2,6 @@
 
 ## Create User Model
 
-- [ ]
 | User | Details |
 |-|-|
 | id | primary key |
@@ -23,30 +22,35 @@
 
 ## Make Routes for Users
 
-- GET /
+- [x] GET /
   - Redirect to list of users
-- GET /users
+- [x] GET /users
   - Show all users
   - Make links to view detail page for the user
   - Have link to add-user form
-- GET /users/new
+- [x] GET /users/new
   - Show add form for users
-- POST /users/news
+- [x] POST /users/news
   - Process the add form, adding a new user and returning to /users
-- GET /users/[user-id]
+- [x] GET /users/[user-id]
   - Show info about specified user
   - Have button to edit page or delete user
-- GET /users/[user-id]/edit
+- [x] GET /users/[user-id]/edit
   - Edit page for user
   - Have a cancel button that returns to detail page and save button to update user
-- POST /users/[user-id]/edit
+- [ ] POST /users/[user-id]/edit
   - Process edit form and return user to /users
-- POST /users/[user-id]/delete
+- [x] POST /users/[user-id]/delete
   - Delete user
 
 ## Testing
 
 - Make sure there are tests for at least 4 of the routes
+
+## To-Do
+
+- Fix editing user (collecting arguments and passing to model)
+- Implement more tests!
 
 ## Further Study
 
