@@ -46,7 +46,8 @@ def create_user():
     lastName = request.form['lastName']
     imgUrl = request.form['imgURL']
     
-    if imgUrl != '':
+    if imgUrl:
+        print(imgUrl)
         User.add_user(firstName, lastName, imgUrl)
     else:
         User.add_user(firstName, lastName)
@@ -62,15 +63,29 @@ def get_user(user_id):
 @app.route('/users/<user_id>/edit')
 def show_update_user_form(user_id):
     
-    return render_template('edit_user.html')
+    return render_template('edit_user.html', id=user_id)
     
-# @app.route('/users/<user_id>/edit', methods=['POST'])
-# def update_user(user_id):
-#     ...
+@app.route('/users/<user_id>/edit', methods=['POST'])
+def update_user(user_id):
+    firstName =  request.form['firstName']
+    lastName = request.form['lastName']
+    imgUrl = request.form['imgURL']
     
-# @app.route('/users/<user_id>/delete', methods=['POST'])
-# def delete_user(user_id):
-#     ...
+    if imgUrl != '':
+        User.edit_user(user_id, firstName, lastName, imgUrl)
+    else:
+        User.edit_user(user_id, **details)
+    return redirect('/users')
+    
+@app.route('/users/<user_id>/delete', methods=['POST'])
+def delete_user(user_id: int):
+    """Deletes user from DB
+
+    Args:
+        user_id (int): id of user to be deleted
+    """
+    User.delete_user(user_id)
+    return redirect('/users')
     
 def main():
     ...
