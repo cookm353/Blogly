@@ -5,13 +5,9 @@
     flex-direction: row;
 }
 
-a {
-    color: white;
-    background-color: aqua;
-}
-
 button {
     border-radius: 20%;
+    height: 2em;
 }
 
 /* Users List Styles */
@@ -41,6 +37,7 @@ form[class='flex'] {
 
 #editDeleteBttns {
     justify-content: space-evenly;
+    flex-direction: row;
 }
 
 #userImg {
@@ -48,10 +45,10 @@ form[class='flex'] {
     height: 125px;
 }
 
-#editDeleteBttns > * {
+#editDeleteBttns > button {
     color: white;
-    border: none;
     height: 2em;
+    border: none;
 }
 
 #editUser {
@@ -63,10 +60,21 @@ form[class='flex'] {
 }
 
 /* Edit User Styles */
-#cancelEditsBttn {
+#editDeleteForm {
+    width:fit-content;
+}
 
+#saveCancelEdits {
+    justify-content: right;
+}
+
+#cancelEditsBttn {
+    border: 4px cornflowerblue;
+    background-color: white;
+    color: cornflowerblue;
 }
 
 #saveEditsBttn {
-
+    background-color: green;
+    color: white;
 }
