@@ -4,7 +4,7 @@
 
 {% block content %}
 <h1>Edit User</h1>
-<form class="flex" method="post">
+<form class="flex" id="editDeleteForm" method="post" action="/users/{{id}}/edit">
     <div>
         <label for="lastName">First Name</label><br>
         <input type="text" name="firstName" id="firstName" placeholder="Enter a first name">
@@ -18,9 +18,12 @@
         <input type="text" name="imgURL" id="imgURL" placeholder="Provide an image of this user">
     </div><br>
     <div id="saveCancelEdits" class="flex">
-        <button id="cancelEditsBttn" type="submit" formaction="/users">Cancel</button>
-        <button id="saveEditsBttn" type="reset">Save</button>
-        <div id="cancelEdits"><a href="/users">Cancel</a></div>
+        <a href="/users">
+            <button id="cancelEditsBttn">Cancel</button>&nbsp;
+        </a>
+        <a href="/users"></a>
+        <button id="saveEditsBttn" type="submit">Save</button>
+        
     </div>
 </form>
 {% endblock %}
