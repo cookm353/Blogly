@@ -42,18 +42,24 @@ class User(db.Model):
         """
         if img_url:
             new_user = User(first_name = first_name, last_name = last_name, img_url = img_url[0])
+            print(img_url)
         else:
             new_user = User(first_name = first_name, last_name = last_name)
         db.session.add(new_user)
         db.session.commit()
         
     @staticmethod
-    def edit_user():
+    def edit_user(id, **details):
         
         ...
         
-def main():
-    ...
+    @staticmethod
+    def delete_user(id):
+        deleted_user = User.query.filter_by(id=id).delete()
+        db.session.commit()
+        
+    def get_full_name(self):
+        return f"{self.first_name} {self.last_name}"
     
-if __name__ == "__main__":
-    main()
+    def get_all_users(self):
+        return User.query.all().order_by(User.last_name.desc())
