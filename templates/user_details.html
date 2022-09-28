@@ -4,13 +4,27 @@
 
 {% block content %}
 <div class="flex mainDiv">
-    <img id="userImg" src='../{{user.img_url}}'' alt="">
+    
+    {% if "http" in user.img_url %}
+    <img id="userImg" src='{{user.img_url}}' alt="">
+    {% else %}
+    <img id="userImg" src='../{{user.img_url}}' alt="">
+    {% endif %}
+
     <div class="flex" id="nameAndBttns">
         <h1>{{user.first_name}} {{user.last_name}}</h1>
-        <div class="flex" id="editDeleteBttns">
-            <button id="editUser">Edit</button> &nbsp;
-            <button id="deleteUser">Delete</button>
-        </div>
+        <form class="flex" id="editDeleteBttns">
+            <button id="editUser"
+                formaction="/users/{{user.id}}/edit"
+                formmethod="GET">
+                Edit</button>
+            <button id="deleteUser" 
+                formaction="/users/{{user.id}}/delete"
+                formmethod="POST">
+                Delete
+            </button>
+        </form>
     </div>
 </div>
 {% endblock %}
+
