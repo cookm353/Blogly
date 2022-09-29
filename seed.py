@@ -1,6 +1,7 @@
 from models import User, db
 from app import app
 
+
 # Recreate tables
 db.drop_all()
 db.create_all()
@@ -14,7 +15,7 @@ jackie_chan = User(first_name='Jackie', last_name='Chan',
 dave_grohl = User(first_name='Dave', last_name='Grohl',
             img_url='static/dave_grohl.png')
 warren = User(first_name='Elizabeth', last_name='Warren',
-              img_url='static/elizabeth_warren.jpg')
+            img_url='static/elizabeth_warren.jpg')
 
 # Add new users to session
 db.session.add(jackie_chan)

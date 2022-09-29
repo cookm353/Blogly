@@ -48,20 +48,26 @@ class User(db.Model):
         db.session.add(new_user)
         db.session.commit()
         
-    @staticmethod
-    def edit_user(id, **details):
+    def edit_user(updated_info):
+        user = User.query.get_or_404(updated_info['id'])
         
-        ...
+        if updated_info.get('first_name'):
+            user.first_name = updated_info['first_name']
+        if updated_info.get('last_name'):
+            user.last_name = updated_info['last_name']
+        if updated_info.get('img_url'):
+            user.img_url = updated_info['img_url']
         
-    @staticmethod
+        db.session.add(user)
+        db.session.commit()
+        
     def delete_user(id):
-        deleted_user = User.query.filter_by(id=id).delete()
+        User.query.filter_by(id=id).delete()
         db.session.commit()
     
     def get_all_users():
         return User.query.order_by(User.last_name)
         
-    def get_full_name(self):
+    @property
+    def full_name(self):
         return f"{self.first_name} {self.last_name}"
-    
-    # full_name = property(get_full_name())

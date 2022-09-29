@@ -18,31 +18,28 @@ connect_db(app)
 
 @app.route('/')
 def index():
-    """
-    Redirect to list of users (for now)
-    """
+    """Redirect to list of users (for now...)"""
+    
     return redirect('/users')
     
 @app.route('/users')
 def show_users():
-    """
-    Show all users
-    """
-    # users = User.query.all()
+    """Show all users"""
+    
     users = User.get_all_users()
     
     return render_template('index.html', users=users)
     
 @app.route('/users/new')
 def add_user():
-    """
-    Form for adding new users
-    """
+    """Form for adding new users"""
+    
     return render_template('add_user.html')
 
 @app.route('/users/new', methods=['POST'])
 def create_user():
     """Process adding new user"""
+    
     first_name =  request.form['first_name']
     last_name = request.form['last_name']
     img_url = request.form['img_urlRL']
@@ -56,56 +53,34 @@ def create_user():
     return redirect('/users')
     
 @app.route('/users/<user_id>')
-def get_user(user_id):
+def get_user_details(user_id):
+    """Displays details of selected user"""
+    
     user = User.query.get_or_404(user_id)
     return render_template('user_details.html', user=user)
     
 @app.route('/users/<user_id>/edit')
 def show_update_user_form(user_id):
+    """Display form for updating user info"""
     
     return render_template('edit_user.html', id=user_id)
     
 @app.route('/users/<user_id>/edit', methods=['POST'])
 def update_user(user_id):
-    user = User.query.get(user_id)
-    print(user)
+    """Edit user information"""
     
-    # if request.form.get('first_name'):
-        # user.first_name = 
+    updated_user_info = {'id': user_id,
+                       'first_name': request.form['first_name'],
+                       'last_name': request.form['last_name'],
+                       'img_url': request.form['img_url']}
     
-    for k, v in request.form.items():
-        if v:
-            # print(k, v)
-            # print(user.k)
-            print(user[k])
-        
-    # db.session.add(user)
-    # db.session.commit()
-    
-    for k,v in request.form.items():
-        print(k, v)
-    # first_name =  request.form['first_name']
-    # last_name = request.form['last_name']
-    # img_urlrl = request.form['img_urlRL']
-    
-    # if img_urlrl != '':
-    #     User.edit_user(user_id, first_name, last_name, img_urlrl)
-    # else:
-    #     User.edit_user(user_id, **details)
+    User.edit_user(updated_user_info)
+
     return redirect('/users')
     
 @app.route('/users/<user_id>/delete', methods=['POST'])
 def delete_user(user_id: int):
-    """Deletes user from DB
-
-    Args:
-        user_id (int): id of user to be deleted
-    """
+    """Deletes user from DB"""
+    
     User.delete_user(user_id)
     return redirect('/users')
-    
-def main():
-    ...
-    
-if __name__ == "__main__":
-    main()

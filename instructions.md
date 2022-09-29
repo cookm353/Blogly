@@ -38,7 +38,7 @@
 - [x] GET /users/[user-id]/edit
   - Edit page for user
   - Have a cancel button that returns to detail page and save button to update user
-- [ ] POST /users/[user-id]/edit
+- [x] POST /users/[user-id]/edit
   - Process edit form and return user to /users
 - [x] POST /users/[user-id]/delete
   - Delete user
@@ -47,21 +47,11 @@
 
 - Make sure there are tests for at least 4 of the routes
 
-## To-Do
-
-- Fix editing user (collecting arguments and passing to model)
-- Implement more tests!
-
 ## Further Study
 
 ### Full Name Method
 
 - Implement a full name method and edit routes to use this instead for first_name and last_name
-
-### List Users in Order
-
-- List users in alphabetical order by last name
-- You can just get SQLAlchemy to do this
 
 ### Turn Full Name into a Property
 
