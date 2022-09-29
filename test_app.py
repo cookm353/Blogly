@@ -53,12 +53,37 @@ class Test_App(TestCase):
             self.assertEqual(resp.status_code, 200)
             
     def test_adding_users(self):
+        # Just doesn't want to work for me
         with app.test_client() as client:
-            d = {'firstName': 'Jane', 'lastName': 'Doe', 
-                 'imgUrl': 'static/default_user.png'}
+            d = {'first_name': 'Jane', 'last_name': 'Doe', 
+                 'img_url': 'static/default_user.png'}
             resp = client.post('/users/new', data=d)
             
             # html = resp.get_data(as_text=True)
             
             self.assertEqual(resp.status_code, 302)
             # self.assertIn('Jane, Doe', html)
+            
+    def test_showing_details(self):
+        with app.test_client() as client:
+            resp = client.get('/users/1')
+            html = resp.get_data(as_text=True)
+            
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn('John Doe', html)
+            
+    def test_deleting_user(self):
+        with app.test_client() as client:
+            resp = client.post('/users/1/delete')
+            html = resp.get_data(as_text=True)
+            
+            self.assertEqual(resp.status_code, 302)
+            
+    def test_deleting_user_aftermath(self):
+        with app.test_client() as client:
+            resp = client.post('/users/1/delete', 
+                               follow_redirects=True)
+            html = resp.get_data(as_text=True)
+            
+            self.assertEqual(resp.status_code, 200)
+            self.assertNotIn('John Doe', html)
