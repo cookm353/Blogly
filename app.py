@@ -28,7 +28,8 @@ def show_users():
     """
     Show all users
     """
-    users = User.query.all()
+    # users = User.query.all()
+    users = User.get_all_users()
     
     return render_template('index.html', users=users)
     

@@ -57,9 +57,11 @@ class User(db.Model):
     def delete_user(id):
         deleted_user = User.query.filter_by(id=id).delete()
         db.session.commit()
+    
+    def get_all_users():
+        return User.query.order_by(User.last_name)
         
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"
     
-    def get_all_users(self):
-        return User.query.all().order_by(User.last_name.desc())
+    # full_name = property(get_full_name())
