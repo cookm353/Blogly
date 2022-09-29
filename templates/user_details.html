@@ -6,9 +6,9 @@
 <div class="flex mainDiv">
     
     {% if "http" in user.img_url %}
-    <img id="userImg" src='{{user.img_url}}' alt="">
+    <img id="user_img" src='{{user.img_url}}' alt="">
     {% else %}
-    <img id="userImg" src='../{{user.img_url}}' alt="">
+    <img id="user_img" src='../{{user.img_url}}' alt="">
     {% endif %}
 
     <div class="flex" id="nameAndBttns">

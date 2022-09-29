@@ -43,17 +43,16 @@ def add_user():
 @app.route('/users/new', methods=['POST'])
 def create_user():
     """Process adding new user"""
-    firstName =  request.form['firstName']
-    lastName = request.form['lastName']
-    imgUrl = request.form['imgURL']
+    first_name =  request.form['firstName']
+    last_name = request.form['lastName']
+    img_url = request.form['imgURL']
     
-    if imgUrl:
-        print(imgUrl)
-        User.add_user(firstName, lastName, imgUrl)
+    if img_url:
+        User.add_user(first_name, last_name, img_url)
     else:
-        User.add_user(firstName, lastName)
+        User.add_user(first_name, last_name)
     
-    print(firstName, lastName, imgUrl)
+    print(first_name, last_name, img_url)
     return redirect('/users')
     
 @app.route('/users/<user_id>')
@@ -68,14 +67,31 @@ def show_update_user_form(user_id):
     
 @app.route('/users/<user_id>/edit', methods=['POST'])
 def update_user(user_id):
-    firstName =  request.form['firstName']
-    lastName = request.form['lastName']
-    imgUrl = request.form['imgURL']
+    user = User.query.get(user_id)
+    print(user)
     
-    if imgUrl != '':
-        User.edit_user(user_id, firstName, lastName, imgUrl)
-    else:
-        User.edit_user(user_id, **details)
+    # if request.form.get('firstName'):
+        # user.firstName = 
+    
+    for k, v in request.form.items():
+        if v:
+            # print(k, v)
+            # print(user.k)
+            print(user[k])
+        
+    # db.session.add(user)
+    # db.session.commit()
+    
+    for k,v in request.form.items():
+        print(k, v)
+    # firstName =  request.form['firstName']
+    # lastName = request.form['lastName']
+    # imgUrl = request.form['imgURL']
+    
+    # if imgUrl != '':
+    #     User.edit_user(user_id, firstName, lastName, imgUrl)
+    # else:
+    #     User.edit_user(user_id, **details)
     return redirect('/users')
     
 @app.route('/users/<user_id>/delete', methods=['POST'])
