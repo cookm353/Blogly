@@ -14,10 +14,10 @@ class User(db.Model):
                    primary_key=True,
                    autoincrement=True)
     
-    firstName = db.Column(db.String(20),
+    first_name = db.Column(db.String(20),
                            nullable=False)
     
-    lastName = db.Column(db.String(20),
+    last_name = db.Column(db.String(20),
                           nullable=False)
     
     img_url = db.Column(db.String,
@@ -29,7 +29,7 @@ class User(db.Model):
         return cls.query.filter_by(id=id).all()
         
     def __repr__(self):
-        return f"<User id={self.id} First name={self.firstName} last name={self.lastName} image url={self.img_url}>"
+        return f"<User id={self.id} First name={self.first_name} last name={self.last_name} image url={self.img_url}>"
     
     @staticmethod
     def add_user(first_name: str, last_name: str, *img_url: str):
@@ -59,9 +59,9 @@ class User(db.Model):
         db.session.commit()
     
     def get_all_users():
-        return User.query.order_by(User.lastName)
+        return User.query.order_by(User.last_name)
         
     def get_full_name(self):
-        return f"{self.firstName} {self.lastName}"
+        return f"{self.first_name} {self.last_name}"
     
     # full_name = property(get_full_name())

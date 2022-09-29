@@ -43,9 +43,9 @@ def add_user():
 @app.route('/users/new', methods=['POST'])
 def create_user():
     """Process adding new user"""
-    first_name =  request.form['firstName']
-    last_name = request.form['lastName']
-    img_url = request.form['imgURL']
+    first_name =  request.form['first_name']
+    last_name = request.form['last_name']
+    img_url = request.form['img_urlRL']
     
     if img_url:
         User.add_user(first_name, last_name, img_url)
@@ -70,8 +70,8 @@ def update_user(user_id):
     user = User.query.get(user_id)
     print(user)
     
-    # if request.form.get('firstName'):
-        # user.firstName = 
+    # if request.form.get('first_name'):
+        # user.first_name = 
     
     for k, v in request.form.items():
         if v:
@@ -84,12 +84,12 @@ def update_user(user_id):
     
     for k,v in request.form.items():
         print(k, v)
-    # firstName =  request.form['firstName']
-    # lastName = request.form['lastName']
-    # imgUrl = request.form['imgURL']
+    # first_name =  request.form['first_name']
+    # last_name = request.form['last_name']
+    # img_urlrl = request.form['img_urlRL']
     
-    # if imgUrl != '':
-    #     User.edit_user(user_id, firstName, lastName, imgUrl)
+    # if img_urlrl != '':
+    #     User.edit_user(user_id, first_name, last_name, img_urlrl)
     # else:
     #     User.edit_user(user_id, **details)
     return redirect('/users')
