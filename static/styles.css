@@ -45,8 +45,11 @@ form[class='flex'] {
 }
 
 #editDeleteBttns {
-    justify-content: space-evenly;
     flex-direction: row;
+}
+
+#editDeleteBttns button {
+    margin: 0 2%;
 }
 
 #userImg {
@@ -58,6 +61,10 @@ form[class='flex'] {
     color: white;
     height: 2em;
     border: none;
+}
+
+#postsDiv h2 {
+    margin-bottom: 0;
 }
 
 #editUser {
@@ -148,8 +155,38 @@ form[class='flex'] {
 }
 
 /* Post Display Styles */
+#viewPostMainDiv {
+    width: 40%;
+}
+
 #postAuthor {
     font-style: italic;
+}
+
+#viewPostForm {
+    flex-direction: row;    
+}
+
+#viewPostForm button {
+    margin: 0 2%;
+}
+
+#cancelBttn {
+    border: 1px solid blue;
+    background-color: white;
+    color: blue;
+}
+
+#editPostBttn {
+    color: white;
+    background-color: blue;
+    border: none;
+}
+
+#deletePostBttn {
+    color: white;
+    background-color: red;
+    border: none;
 }
 
 /* Edit Post Styles */
