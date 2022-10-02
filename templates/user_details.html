@@ -5,26 +5,44 @@
 {% block content %}
 <div class="flex mainDiv">
     
-    {% if "http" in user.img_url %}
-    <img id="user_img" src='{{user.img_url}}' alt="">
-    {% else %}
-    <img id="user_img" src='../{{user.img_url}}' alt="">
-    {% endif %}
+    <div id="userImg">
+        {% if "http" in user.img_url %}
+        <img id="user_img" src='{{user.img_url}}' alt="">
+        {% else %}
+        <img id="user_img" src='../{{user.img_url}}' alt="">
+        {% endif %}
+    </div>
 
     <div class="flex" id="nameAndBttns">
-        <h1>{{user.first_name}} {{user.last_name}}</h1>
+        <h1>{{user.full_name}}</h1>
         <form class="flex" id="editDeleteBttns">
             <button id="editUser"
-                formaction="/users/{{user.id}}/edit"
+                formaction="/users/{{user.user_id}}/edit"
                 formmethod="GET">
                 Edit</button>
             <button id="deleteUser" 
-                formaction="/users/{{user.id}}/delete"
+                formaction="/users/{{user.user_id}}/delete"
                 formmethod="POST">
                 Delete
             </button>
         </form>
+        <div class="flex" id="postsDiv">
+            <h2>Posts</h2>
+            <ul>
+                {% for post in user.posts %}
+                <li><a href="/posts/{{post.post_id}}">{{post.title}}</a></li>
+                {% endfor %}
+            </ul>
+            <form>
+                <button id='addPost'
+                    formaction="/users/{{user.user_id}}/posts/new"
+                    formmethod="GET">
+                    Add Post
+                </button>
+            </form>
+        </div>
     </div>
+
 </div>
 {% endblock %}
 
