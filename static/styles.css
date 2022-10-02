@@ -31,8 +31,17 @@ form[class='flex'] {
 
 /* User Details Styles */
 
+#mainDiv {
+    width: fit-content;
+}
+
+#userImg {
+    margin-right: 20px;
+}
+
 #nameAndBttns {
     flex-direction: column;
+    margin-left: 25px;
 }
 
 #editDeleteBttns {
@@ -59,6 +68,12 @@ form[class='flex'] {
     background-color: red;
 }
 
+#addPost {
+    background-color: blue;
+    color: white;
+    border: none;
+}
+
 /* Edit User Styles */
 #editDeleteForm {
     width:fit-content;
@@ -77,4 +92,91 @@ form[class='flex'] {
 #saveEditsBttn {
     background-color: green;
     color: white;
+}
+
+#postsDiv {
+    flex-direction: column;
+}
+
+#addPost {
+    width: fit-content;
+}
+
+/* New Post Styles */
+#newPostForm {
+    width: 30%;
+}
+
+#newPostForm > fieldset {
+    /* width: 40%; */
+    border: none;
+}
+
+.postFormRow {
+    justify-content: space-between;
+}
+
+.postFormRow > textarea, .postFormRow > input {
+    width: 85%;
+}
+
+#post_content{
+    height: 80px;
+}
+
+#postBttnRow {
+    justify-content: right;
+    /* justify-content: space-around; */
+}
+
+#postBttnRow {
+    margin-right: 3%;
+}
+
+#postBttnRow button {
+    border: none;
+    color: white;
+    margin-left: 2%;
+}
+
+#cancelNewPost {
+    background-color: rgb(0, 149, 149);
+}
+
+#addNewPost {
+    background-color: green;
+}
+
+/* Post Display Styles */
+#postAuthor {
+    font-style: italic;
+}
+
+/* Edit Post Styles */
+#editPostForm {
+    width: 40%;
+}
+
+#editPostForm > fieldset {
+    border: none;
+}
+
+#editPostBttnRow {
+    justify-content: right;
+}
+
+#editPostBttnRow button {
+    margin-right: 2%;
+}
+
+#cancelEditPost {
+    border: 1px cornflowerblue solid;
+    background-color: white;
+    color: cornflowerblue;
+}
+
+#editPost {
+    border: none;
+    color: white;
+    background-color: green;
 }
