@@ -2,8 +2,8 @@
 
 from flask import Flask, render_template, redirect, flash, session, request
 from flask_debugtoolbar import DebugToolbarExtension
-from flask_sqlalchemy import SQLAlchemy
-from models import db, connect_db, User
+# from flask_sqlalchemy import SQLAlchemy
+from models import db, connect_db, User, Post
 
 app = Flask(__name__)
 
@@ -84,3 +84,60 @@ def delete_user(user_id: int):
     
     User.delete_user(user_id)
     return redirect('/users')
+
+
+
+@app.route('/users/<user_id>/posts/new')
+def show_new_post_form(user_id: int):
+    """Display form for creating new post"""
+    user = User.get_user_by_id(user_id)
+    print(user)
+    print(user.full_name)
+    
+    return render_template('add_post.html', user=user)
+    
+@app.route('/users/<user_id>/posts/new', methods=['POST'])
+def create_post(user_id: int):
+    """Actually create the post"""
+    post_title = request.form['post_title']
+    post_content = request.form['post_content']
+    
+    Post.add_post(post_title, post_content, user_id)
+    
+    return redirect(f'/users/{user_id}')
+
+@app.route('/posts/<post_id>')
+def show_post(post_id: int):
+    """Display specified post"""
+    
+    post = Post.get_post(post_id)
+    
+    return render_template('view_post.html', post=post)
+
+@app.route('/posts/<post_id>/edit')
+def show_edit_post_form(post_id):
+    """Show form for editing a post"""
+    post = Post.get_post(post_id)
+    
+    return render_template('edit_post.html', post=post)
+
+@app.route('/posts/<post_id>/edit', methods=['POST'])
+def edit_post(post_id):
+    """Actually edit the post"""    
+    new_post_info = {'id': post_id,
+                     'title': request.form['post_title'],
+                     'content': request.form['post_content']}
+    
+    Post.edit_post(new_post_info)
+        
+    return redirect(f'/posts/{post_id}')
+
+@app.route('/posts/<post_id>/delete', methods=['POST'])
+def delete_post(post_id):
+    """Delete post"""
+    user_id = Post.query.get(post_id).user_id
+
+    # Delete the post
+    Post.delete_post(post_id)
+    
+    return redirect(f'/users/{user_id}')
