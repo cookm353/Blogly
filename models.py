@@ -1,5 +1,6 @@
 """Models for Blogly."""
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.sql import functions as func
 
 db = SQLAlchemy()
 
@@ -10,7 +11,7 @@ def connect_db(app):
 class User(db.Model):
     __tablename__ = 'users'
     
-    id = db.Column(db.Integer,
+    user_id = db.Column(db.Integer,
                    primary_key=True,
                    autoincrement=True)
     
@@ -26,7 +27,7 @@ class User(db.Model):
 
     @classmethod
     def get_user_by_id(cls, id):
-        return cls.query.filter_by(id=id).all()
+        return cls.query.filter_by(id=id).first()
         
     def __repr__(self):
         return f"<User id={self.id} First name={self.first_name} last name={self.last_name} image url={self.img_url}>"
@@ -72,14 +73,37 @@ class User(db.Model):
     def full_name(self):
         return f"{self.first_name} {self.last_name}"
     
-class Post(db.model):
+class Post(db.Model):
     __tablename__ = 'posts'
     
-    id = db.column(db.Integer, primary_key=True,
+
+    post_id = db.Column(db.Integer,
+                   primary_key=True,
                    autoincrement=True)
-    title = db.column(db.Text, nullable=False)
-    content = db.column(db.Text, nullable=False)
-    created_at = db.column(db.DateTime, nullable=False)
-    user_id = db.column(db.Integer, db.ForeignKey('users.id'))
+    title = db.Column(db.Text,
+                      nullable=False)
+    content = db.Column(db.Text,
+                        nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False,
+                           default=func.now())
+    
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     
     user = db.relationship('User', backref='posts')
+    
+    def __repr__(self):
+        return f"<Post id={self.id} title={self.title} author={self.User.full_name}>"
+    
+    def add_post(title, content, user_id):
+        new_post = Post(title=title, content=content, user_id=user_id)
+        db.session.add(new_post)
+        db.session.commit()
+        
+    def delete_post():
+        ...
+        
+    def edit_post(title, content):
+        ...
+        
+    def get_post(post_id):
+        return Post.query.get(post_id)
