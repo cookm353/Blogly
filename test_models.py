@@ -8,7 +8,7 @@ app.config['SQLALCHEMY_ECHO'] = False
 db.drop_all()
 db.create_all()
 
-class Test_Models(TestCase):
+class Test_User(TestCase):
     def setUp(self):
         User.query.delete()
     
@@ -63,5 +63,5 @@ class Test_Models(TestCase):
         user = User.query.get(1)
         self.assertEqual(user.first_name, 'Jimmy')
         
-        User.delete_user(user.id)
+        User.delete_user(user.user_id)
         self.assertEqual(User.query.one_or_none(), None)

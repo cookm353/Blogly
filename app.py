@@ -85,8 +85,7 @@ def delete_user(user_id: int):
     User.delete_user(user_id)
     return redirect('/users')
 
-
-
+# Routes related to posts
 @app.route('/users/<user_id>/posts/new')
 def show_new_post_form(user_id: int):
     """Display form for creating new post"""
@@ -137,7 +136,6 @@ def delete_post(post_id):
     """Delete post"""
     user_id = Post.query.get(post_id).user_id
 
-    # Delete the post
     Post.delete_post(post_id)
     
     return redirect(f'/users/{user_id}')

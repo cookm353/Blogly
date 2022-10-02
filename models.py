@@ -1,6 +1,7 @@
 """Models for Blogly."""
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import functions as func
+from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -27,10 +28,10 @@ class User(db.Model):
 
     @classmethod
     def get_user_by_id(cls, id):
-        return cls.query.filter_by(id=id).first()
+        return cls.query.filter_by(user_id=id).first()
         
     def __repr__(self):
-        return f"<User id={self.id} First name={self.first_name} last name={self.last_name} image url={self.img_url}>"
+        return f"<User id={self.user_id} First name={self.first_name} last name={self.last_name} image url={self.img_url}>"
     
     @staticmethod
     def add_user(first_name: str, last_name: str, *img_url: str):
@@ -63,7 +64,7 @@ class User(db.Model):
         db.session.commit()
         
     def delete_user(id):
-        User.query.filter_by(id=id).delete()
+        User.query.filter_by(user_id=id).delete()
         db.session.commit()
     
     def get_all_users():
@@ -72,11 +73,11 @@ class User(db.Model):
     @property
     def full_name(self):
         return f"{self.first_name} {self.last_name}"
-    
+
+
 class Post(db.Model):
     __tablename__ = 'posts'
     
-
     post_id = db.Column(db.Integer,
                    primary_key=True,
                    autoincrement=True)
@@ -87,9 +88,11 @@ class Post(db.Model):
     created_at = db.Column(db.DateTime, nullable=False,
                            default=func.now())
     
-    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id', 
+                                                  onupdate='CASCADE',
+                                                  ondelete='CASCADE'))
     
-    user = db.relationship('User', backref='posts')
+    user = db.relationship('User', backref='posts', single_parent=True)
     
     def __repr__(self):
         return f"<Post id={self.id} title={self.title} author={self.User.full_name}>"
@@ -99,11 +102,31 @@ class Post(db.Model):
         db.session.add(new_post)
         db.session.commit()
         
-    def delete_post():
-        ...
+    def delete_post(post_id):
+        # deleted_post = Post.get_post(post_id)
+        Post.query.filter_by(post_id=post_id).delete()
+        db.session.commit()
         
-    def edit_post(title, content):
-        ...
+    def edit_post(new_details):
+        post = Post.query.get_or_404(new_details['id'])
+        
+        if new_details.get('title'):
+            post.title = new_details['title']
+        if new_details.get('content'):
+            post.content = new_details['content']
+            
+        db.session.add(post)
+        db.session.commit()
+            
         
     def get_post(post_id):
         return Post.query.get(post_id)
+    
+    @property
+    def timestamp(self):
+        months = ['January', 'February', 'March', 'April', 'May',
+                  'June', 'July', 'August', 'September',
+                  'October', 'November', 'December']
+        date = self.created_at
+        
+        return f'{months[date.month]} {date.day}, {date.year} {date.hour}:{date.minute}:{date.second}'

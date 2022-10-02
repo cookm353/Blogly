@@ -74,21 +74,21 @@
 
 ### UI
 
-- [ ] Add list of posts to user detail page
-- [ ] Add 'Add Post' button below list of posts
-- [ ] Implement a new post form
-- [ ] Create another page for new post form
-- [ ] Create a page for displaying posts
-- [ ] Create post edit form
+- [x] Add list of posts to user detail page
+- [x] Add 'Add Post' button below list of posts
+- [x] Implement a new post form
+- [x] Create another page for new post form
+- [x] Create a page for displaying posts
+- [x] Create post edit form
 
 ### New Routes
 
-- [ ] GET /users/[user-id]/posts/new
-- [ ] POST /users/[user-id]/posts/new
-- [ ] GET /posts/[post-id]
-- [ ] GET /posts/[post-id]/edit
-- [ ] POST /posts/[post-id]/edit
-- [ ] POST /posts/[post-id]/delete
+- [x] GET /users/[user-id]/posts/new
+- [x] POST /users/[user-id]/posts/new
+- [x] GET /posts/[post-id]
+- [x] GET /posts/[post-id]/edit
+- [x] POST /posts/[post-id]/edit
+- [x] POST /posts/[post-id]/delete
 
 ### Other tasks
 
