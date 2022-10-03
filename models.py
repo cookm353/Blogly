@@ -1,7 +1,6 @@
 """Models for Blogly."""
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import functions as func
-from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -103,7 +102,6 @@ class Post(db.Model):
         db.session.commit()
         
     def delete_post(post_id):
-        # deleted_post = Post.get_post(post_id)
         Post.query.filter_by(post_id=post_id).delete()
         db.session.commit()
         
@@ -130,3 +128,25 @@ class Post(db.Model):
         date = self.created_at
         
         return f'{months[date.month]} {date.day}, {date.year} {date.hour}:{date.minute}:{date.second}'
+
+    
+class Tag(db.Model):
+    __tablename__ = 'tags'
+    
+    tag_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    tag_name = db.Column(db.Text, nullable=False)
+    
+    post = db.relationship('Post', backref='tag', secondary='post_tags')
+    
+    
+class PostTag(db.Model):
+    __tablename__ = 'post_tags'
+    
+    post_id = db.Column(db.Integer, db.ForeignKey('posts.post_id', 
+                                                  onupdate='CASCADE',
+                                                  ondelete='CASCADE'),
+                        primary_key=True)
+    tag_id = db.Column(db.Integer, db.ForeignKey('tags.tag_id',
+                                                 onupdate='CASCADE',
+                                                 ondelete='CASCADE'),
+                       primary_key=True)

@@ -92,12 +92,52 @@
 
 ### Other tasks
 
-- [ ] Change user page to show posts for user
-- [ ] Update broken tests and implement new ones
+- [x] Change user page to show posts for user
+- [x] Update broken tests and implement new ones
 
-## Further Study
+### Further Study
 
 - [ ] Make the homepage display the 5 most recent posts
 - [ ] When listing posts, use a more readable format
 - [ ] Add a custom 404 error page (requires research)
-- [ ] Cascade deletion of user - when a user is deleted their posts should automatically be deleted also
+- [x] Cascade deletion of user - when a user is deleted their posts should automatically be deleted also
+
+## Part 3
+
+### New HTML files
+
+- [ ] Add tag
+- [ ] Edit tag
+- [ ] List tags
+- [ ] Show posts by tag
+
+### Change HTML files
+
+- [ ] Show tags on post
+- [ ] Add tags to new posts (check boxes)
+- [ ] Add tags to edit posts (check boxes)
+
+### Add Routes
+
+- [ ] GET /tags
+  - Lists all tags, with links to the tag detail page.
+- [ ] GET /tags/[tag-id]
+  - Show detail about a tag. Have links to edit form and to delete.
+- [ ] GET /tags/new
+  - Shows a form to add a new tag.
+- [ ] POST /tags/new
+  - Process add form, adds tag, and redirect to tag list.
+- [ ] GET /tags/[tag-id]/edit
+  - Show edit form for a tag.
+- [ ] POST /tags/[tag-id]/edit
+  - Process edit form, edit tag, and redirects to the tags list.
+- [ ] POST /tags/[tag-id]/delete
+  - Delete a tag
+
+### Further Study
+
+- [ ] Keep on testing'
+- [ ] Let user add tags to post from create tag page
+- [ ] Let user add tags to post from edit tag page
+- [ ] Make user homepage displays tags on posts, too!
+- [ ] Finish the other further study items from part 2

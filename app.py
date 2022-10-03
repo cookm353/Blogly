@@ -86,6 +86,7 @@ def delete_user(user_id: int):
     return redirect('/users')
 
 # Routes related to posts
+
 @app.route('/users/<user_id>/posts/new')
 def show_new_post_form(user_id: int):
     """Display form for creating new post"""
@@ -139,3 +140,33 @@ def delete_post(post_id):
     Post.delete_post(post_id)
     
     return redirect(f'/users/{user_id}')
+
+# Routes related to tags
+
+@app.route('/tags')
+def show_tags():
+    ...
+    
+@app.route('/tags/<tag_id>')
+def show_tag_details(tag_id):
+    ...
+
+@app.route('/tags/new')
+def show_make_tag_form():
+    ...
+    
+@app.route('/tags/new', methods=['POST'])
+def make_tag():
+    ...
+    
+@app.route('/tags/<tag_id>/edit')
+def show_edit_tag_form(tag_id):
+    ...
+    
+@app.route('/tags/<tag_id>/edit', methods=['POST'])
+def edit_tag(tag_id):
+    ...
+    
+@app.route('/tags/<tag_id>/delete', methods=['POST'])
+def delete_tag(tag_id):
+    ...
