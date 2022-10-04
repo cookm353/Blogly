@@ -134,9 +134,14 @@
 - [ ] POST /tags/[tag-id]/delete
   - Delete a tag
 
+### General To-Do
+
+- [ ] Prevent users without names from being created
+- [x] Finish consolidating button styles
+
 ### Further Study
 
-- [ ] Keep on testing'
+- [ ] Keep on testing
 - [ ] Let user add tags to post from create tag page
 - [ ] Let user add tags to post from edit tag page
 - [ ] Make user homepage displays tags on posts, too!
