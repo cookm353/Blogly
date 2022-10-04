@@ -22,6 +22,8 @@ grohl = User(first_name='Dave', last_name='Grohl',
             img_url='static/dave_grohl.png')
 warren = User(first_name='Elizabeth', last_name='Warren',
             img_url='static/elizabeth_warren.jpg')
+claudio = User(first_name='Claudio', last_name='Sanchez',
+               img_url='static/claudio.jpg')
 doe = User(first_name='Jane', last_name='Doe')
 
 """
@@ -38,7 +40,7 @@ warren_post = Post(title='Have a Problem?',
                    user_id=3)
 
 # Add posts to DB
-db.session.add_all([jackie, grohl, warren, doe, doe_post, 
+db.session.add_all([jackie, grohl, warren, doe, claudio, doe_post, 
                     grohl_post, warren_post])
 db.session.commit()
 
