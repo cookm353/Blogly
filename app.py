@@ -3,7 +3,7 @@
 from flask import Flask, render_template, redirect, flash, session, request
 from flask_debugtoolbar import DebugToolbarExtension
 # from flask_sqlalchemy import SQLAlchemy
-from models import db, connect_db, User, Post
+from models import db, connect_db, User, Post, Tag, PostTag
 
 app = Flask(__name__)
 
@@ -42,7 +42,7 @@ def create_user():
     
     first_name =  request.form['first_name']
     last_name = request.form['last_name']
-    img_url = request.form['img_urlRL']
+    img_url = request.form['img_url']
     
     if img_url:
         User.add_user(first_name, last_name, img_url)
@@ -145,28 +145,36 @@ def delete_post(post_id):
 
 @app.route('/tags')
 def show_tags():
-    ...
+    tags = Tag.get_tags()
+    
+    return render_template('show_tags.html', tags=tags)
     
 @app.route('/tags/<tag_id>')
 def show_tag_details(tag_id):
-    ...
+    return render_template('tag_details.html')
 
 @app.route('/tags/new')
 def show_make_tag_form():
-    ...
+    return render_template('add_tag.html')
     
 @app.route('/tags/new', methods=['POST'])
 def make_tag():
-    ...
+    tag_name = request.form['tag_name']
+    Tag.make_tag(tag_name)
+    
+    return redirect('/tags')
     
 @app.route('/tags/<tag_id>/edit')
 def show_edit_tag_form(tag_id):
-    ...
+    
+    return render_template('edit_tag.html')
     
 @app.route('/tags/<tag_id>/edit', methods=['POST'])
 def edit_tag(tag_id):
-    ...
+    
+    return redirect(f'/tags/{tag_id}')
     
 @app.route('/tags/<tag_id>/delete', methods=['POST'])
 def delete_tag(tag_id):
-    ...
+    
+    return redirect('/tags')
