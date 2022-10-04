@@ -8,14 +8,41 @@
 button {
     border-radius: 20%;
     height: 2em;
+    border: none;
 }
 
-/* Users List Styles */
+.blueBttn {
+    background-color: blue;
+    color: white;
+}
 
-#addUserBttn {
+.grayBttn {
     background-color: rgb(100, 100, 100);
     color: white;
 }
+
+.redBttn {
+    color: white;
+    background-color: red;
+}
+
+.greenBttn {
+    background-color: green;
+    color: white;
+}
+
+.tealBttn {
+    background-color: rgb(0, 149, 149);
+    color: white;
+}
+
+.invertedBlueBttn {
+    border: 1px solid blue;
+    background-color: white;
+    color: blue;
+}
+
+/* Users List Styles */
 
 /* Add User Form Styles */
 
@@ -25,8 +52,6 @@ form[class='flex'] {
 
 #submitNewUserBttn {
     width: fit-content;
-    background-color: rgb(100, 100, 100);
-    color: white;
 }
 
 /* User Details Styles */
@@ -57,28 +82,8 @@ form[class='flex'] {
     height: 125px;
 }
 
-#editDeleteBttns > button {
-    color: white;
-    height: 2em;
-    border: none;
-}
-
 #postsDiv h2 {
     margin-bottom: 0;
-}
-
-#editUser {
-    background-color: blue;
-}
-
-#deleteUser {
-    background-color: red;
-}
-
-#addPost {
-    background-color: blue;
-    color: white;
-    border: none;
 }
 
 /* Edit User Styles */
@@ -88,17 +93,6 @@ form[class='flex'] {
 
 #saveCancelEdits {
     justify-content: right;
-}
-
-#cancelEditsBttn {
-    border: 4px cornflowerblue;
-    background-color: white;
-    color: cornflowerblue;
-}
-
-#saveEditsBttn {
-    background-color: green;
-    color: white;
 }
 
 #postsDiv {
@@ -146,14 +140,6 @@ form[class='flex'] {
     margin-left: 2%;
 }
 
-#cancelNewPost {
-    background-color: rgb(0, 149, 149);
-}
-
-#addNewPost {
-    background-color: green;
-}
-
 /* Post Display Styles */
 #viewPostMainDiv {
     width: 40%;
@@ -171,24 +157,6 @@ form[class='flex'] {
     margin: 0 2%;
 }
 
-#cancelBttn {
-    border: 1px solid blue;
-    background-color: white;
-    color: blue;
-}
-
-#editPostBttn {
-    color: white;
-    background-color: blue;
-    border: none;
-}
-
-#deletePostBttn {
-    color: white;
-    background-color: red;
-    border: none;
-}
-
 /* Edit Post Styles */
 #editPostForm {
     width: 40%;
@@ -204,16 +172,4 @@ form[class='flex'] {
 
 #editPostBttnRow button {
     margin-right: 2%;
-}
-
-#cancelEditPost {
-    border: 1px cornflowerblue solid;
-    background-color: white;
-    color: cornflowerblue;
-}
-
-#editPost {
-    border: none;
-    color: white;
-    background-color: green;
 }
