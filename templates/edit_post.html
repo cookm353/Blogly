@@ -16,10 +16,10 @@
         </div>
     </fieldset>
     <div class="flex" id="editPostBttnRow">
-        <button id="cancelEditPost" 
+        <button class="invertedBlueBttn"
             formaction="/users/{{post.user.user_id}}" 
             formmethod="get">Cancel</button>
-        <button id="editPost" 
+        <button class="greenBttn"
             formaction="/posts/{{post.post_id}}/edit" 
             formmethod="post">Edit</button>
     </div>

@@ -16,10 +16,10 @@
         </div>
     </fieldset>
     <div class="flex" id="postBttnRow">
-        <button id="cancelNewPost" 
+        <button class="tealBttn"
             formaction="/users/{{user.user_id}}" 
             formmethod="get">Cancel</button>
-        <button id="addNewPost" 
+        <button class="greenBttn"
             formaction="/users/{{user.user_id}}/posts/new" 
             formmethod="post">Add</button>
     </div>

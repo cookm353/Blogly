@@ -16,11 +16,11 @@
     <div class="flex" id="nameAndBttns">
         <h1>{{user.full_name}}</h1>
         <form class="flex" id="editDeleteBttns">
-            <button id="editUser"
+            <button class="blueBttn"
                 formaction="/users/{{user.user_id}}/edit"
                 formmethod="GET">
                 Edit</button>
-            <button id="deleteUser" 
+            <button class="redBttn"
                 formaction="/users/{{user.user_id}}/delete"
                 formmethod="POST">
                 Delete
@@ -34,7 +34,7 @@
                 {% endfor %}
             </ul>
             <form>
-                <button id='addPost'
+                <button class="blueBttn"
                     formaction="/users/{{user.user_id}}/posts/new"
                     formmethod="GET">
                     Add Post
