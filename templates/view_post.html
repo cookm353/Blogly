@@ -7,8 +7,17 @@
     <div>
         <h1>{{post.title}}</h1>
         <p>{{post.content}}</p>
-        <p id="postAuthor">By {{post.user.full_name}}</p>
-        <p id="postDate">{{post.timestamp}}</p>
+        <p id="postAuthor">By {{post.user.full_name}} on {{post.timestamp}}</p>
+    </div>
+    <div class="flex" id="postTagList">
+        <p>Tags:</p>
+        <div class="flex" id="tagList">
+            {% for tag in tags %}
+            <div class="tagHolderDiv">
+                <p class="tags"><a href="/tags/{{tag.tag_id}}">{{tag.tag_name}}</a></p>
+            </div>
+            {% endfor %}
+        </div>
     </div>
     <div>
         <form class='flex' id="viewPostForm">
