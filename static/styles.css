@@ -173,3 +173,44 @@ form[class='flex'] {
 #editPostBttnRow button {
     margin-right: 2%;
 }
+
+/* Create Tag Styles */
+#createTagForm {
+    width: 20%;
+}
+
+#createTagInputRow {
+    justify-content: space-between;
+}
+
+#createTagInputRow > input {
+    width: 80%
+}
+
+#createTagBttns {
+    justify-content: right;
+}
+
+#createTagBttns button {
+    margin-right: 2%;
+}
+
+/* Edit Tag Styles */
+#editTagForm {
+    width: 20%;
+}
+#editTagInputRow {
+    justify-content: space-between;
+}
+
+#editTagBttns {
+    justify-content: right;
+}
+
+#editTagForm input {
+    width: 80%;
+}
+
+#editTagBttns button {
+    margin-right: 2%;
+}
