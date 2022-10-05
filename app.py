@@ -178,5 +178,5 @@ def edit_tag(tag_id):
     
 @app.route('/tags/<tag_id>/delete', methods=['POST'])
 def delete_tag(tag_id):
-    
+    Tag.delete_tag(tag_id)
     return redirect('/tags')
