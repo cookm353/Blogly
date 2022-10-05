@@ -151,7 +151,9 @@ def show_tags():
     
 @app.route('/tags/<tag_id>')
 def show_tag_details(tag_id):
-    return render_template('tag_details.html')
+    tag, posts = Tag.get_posts_by_tag(tag_id)
+    
+    return render_template('tag_details.html', tag=tag, posts=posts)
 
 @app.route('/tags/new')
 def show_make_tag_form():

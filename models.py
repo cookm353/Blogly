@@ -1,4 +1,5 @@
 """Models for Blogly."""
+from codecs import backslashreplace_errors
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import functions as func
 
@@ -91,10 +92,12 @@ class Post(db.Model):
                                                   onupdate='CASCADE',
                                                   ondelete='CASCADE'))
     
-    user = db.relationship('User', backref='posts', single_parent=True)
+    user = db.relationship('User', backref='posts')
+    tag = db.relationship('Tag', backref='posts', secondary='post_tags')
+    posttags = db.relationship('PostTag', backref='posts')
     
     def __repr__(self):
-        return f"<Post id={self.id} title={self.title} author={self.User.full_name}>"
+        return f"<Post id={self.post_id} title={self.title} author={self.user.full_name}>"
     
     def add_post(title, content, user_id):
         new_post = Post(title=title, content=content, user_id=user_id)
@@ -114,8 +117,7 @@ class Post(db.Model):
             post.content = new_details['content']
             
         db.session.add(post)
-        db.session.commit()
-            
+        db.session.commit()          
         
     def get_post(post_id):
         return Post.query.get(post_id)
@@ -136,7 +138,37 @@ class Tag(db.Model):
     tag_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     tag_name = db.Column(db.Text, nullable=False)
     
-    post = db.relationship('Post', backref='tag', secondary='post_tags')
+    posttag = db.relationship('PostTag', backref='tags')
+    
+    def __repr__(self):
+        return f"<Tag id={self.tag_id} name={self.tag_name}>"
+    
+    def get_tags():
+        return Tag.query.all()
+
+    def get_tag(tag_id):
+        return Tag.query.get_or_404(tag_id)
+    
+    def get_posts_by_tag(tag_id):
+        tag = Tag.get_tag(tag_id)
+        posts = tag.posts
+        return (tag, posts)
+            
+    def make_tag(name):
+        tag = Tag(tag_name=name)
+        db.session.add(tag)
+        db.session.commit()
+
+    def edit_tag(tag_id, name):
+        tag = Tag.query.get_or_404(tag_id)
+        tag.tag_name = name
+        
+        db.session.add(tag)
+        db.session.commit()
+
+    def delete_tag(tag_id):
+        tag = Tag.query.filter_by(tag_id = tag_id).delete()
+        db.session.commit()
     
     
 class PostTag(db.Model):
