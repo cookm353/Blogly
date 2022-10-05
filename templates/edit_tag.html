@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Tag{% endblock %}
+
+{% block content %}
+<h1>Edit a Tag</h1>
+<form id="editTagForm">
+    <div class="flex" id="editTagInputRow">
+        <label for="new_tag_name">Name:</label>
+        <input type="text" name="new_tag_name" 
+            id="new_tag_name" placeholder="{{tag.tag_name}}">
+    </div><br>
+    <div class="flex bttnRow" id="editTagBttns">
+        <button class="tealBttn"
+            formaction="/tags/{{tag.tag_id}}"
+            formmethod="GET">Cancel</button>
+        <button class="greenBttn"
+            formaction="/tags/{{tag.tag_id}}/edit"
+            formmethod="POST">Edit</button>
+    </div>
+</form>
+{% endblock %}
