@@ -20,7 +20,7 @@ class User(db.Model):
                            nullable=False)
     
     last_name = db.Column(db.String(20),
-                          nullable=False)
+                          nullable=True)
     
     img_url = db.Column(db.String,
                           nullable=True,
@@ -31,22 +31,39 @@ class User(db.Model):
         return cls.query.filter_by(user_id=id).first()
         
     def __repr__(self):
-        return f"<User id={self.user_id} First name={self.first_name} last name={self.last_name} image url={self.img_url}>"
+        if self.last_name:
+            return f"<User id={self.user_id} First name={self.first_name} last name={self.last_name} image url={self.img_url}>"
+        else:
+            return f"<User id={self.user_id} First name={self.first_name} image url={self.img_url}>"
     
     @staticmethod
-    def add_user(first_name: str, last_name: str, *img_url: str):
-        """Method for adding users to database
-
-        Args:
-            first_name (str): User's first name
-            last_name (str): User's last name
-            img_url (str): URL of image
-        """
-        if img_url:
-            new_user = User(first_name = first_name, last_name = last_name, img_url = img_url[0])
-            print(img_url)
+    def add_user(new_user_info):
+    # def add_user(first_name: str, last_name: str, *img_url: str):
+        """Method for adding users to database"""
+        first_name = new_user_info['first_name']
+        last_name = new_user_info.get('last_name', None)
+        img_url = new_user_info.get('img_url', None)
+        
+        if img_url and last_name:
+            new_user = User(first_name=first_name, last_name=last_name, 
+                            img_url=img_url)
+        elif last_name:
+            new_user = User(first_name=first_name, last_name=last_name)
+        elif img_url:
+            new_user = User(first_name=first_name, img_url=img_url)
         else:
-            new_user = User(first_name = first_name, last_name = last_name)
+            new_user = User(first_name=first_name)
+            
+        # if new_user_info['img_url']:
+        #     user_img = new_user_info['img_url']
+        #     new_user = User(first_name = first_name,
+        #                     last_name = new_user_info['last_name'], 
+        #                     img_url = user_img)
+        # else:
+        #     new_user = User(first_name = new_user_info['first_name'],
+        #                     last_name = new_user_info['last_name'])
+        
+        
         db.session.add(new_user)
         db.session.commit()
         
@@ -122,6 +139,12 @@ class Post(db.Model):
     def get_post(post_id):
         return Post.query.get(post_id)
     
+    def get_tags_by_post(post_id):
+        tags = Post.query.get_or_404(post_id).tag
+        print(tags[0].tag_name)
+        
+        return tags
+    
     @property
     def timestamp(self):
         months = ['January', 'February', 'March', 'April', 'May',
@@ -129,7 +152,14 @@ class Post(db.Model):
                   'October', 'November', 'December']
         date = self.created_at
         
-        return f'{months[date.month]} {date.day}, {date.year} {date.hour}:{date.minute}:{date.second}'
+        if date.hour >= 12:
+            hour = date.hour - 12
+            time = f"{hour}:{date.minute}:{date.second} PM"
+        else:
+            hour = date.hour
+            time = f"{hour}:{date.minute}:{date.second} AM"
+        
+        return f'{months[date.month]} {date.day}, {date.year} {time}'
 
     
 class Tag(db.Model):
@@ -167,7 +197,7 @@ class Tag(db.Model):
         db.session.commit()
 
     def delete_tag(tag_id):
-        tag = Tag.query.filter_by(tag_id = tag_id).delete()
+        Tag.query.filter_by(tag_id = tag_id).delete()
         db.session.commit()
     
     

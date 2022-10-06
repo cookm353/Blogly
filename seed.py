@@ -7,10 +7,10 @@ db.drop_all()
 db.create_all()
 
 # Ensure tables are empty
-User.query.delete()
+PostTag.query.delete()
 Post.query.delete()
 Tag.query.delete()
-PostTag.query.delete()
+User.query.delete()
 
 """
 Users
