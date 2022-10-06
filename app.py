@@ -83,13 +83,6 @@ def show_new_post_form(user_id: int):
 @app.route('/users/<user_id>/posts/new', methods=['POST'])
 def create_post(user_id: int):
     """Actually create the post"""
-    # post_title = request.form['post_title']
-    # post_content = request.form['post_content']
-    
-    # for k in request.form.keys():
-    #     print(k)
-    
-    # Post.add_post(post_title, post_content, user_id)
     Post.add_post(user_id, request.form)
     
     return redirect(f'/users/{user_id}')
@@ -97,7 +90,6 @@ def create_post(user_id: int):
 @app.route('/posts/<post_id>')
 def show_post(post_id: int):
     """Display specified post"""
-    
     post = Post.get_post(post_id)
     tags = Post.get_tags_by_post(post_id)
     
