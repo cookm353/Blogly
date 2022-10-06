@@ -11,8 +11,17 @@
             <input type="text" name="post_title" id="post_title">
         </div><br>
         <div class="flex postFormRow">
-            <label for="post_content">Content</label>
+            <label for="post_content">Content:</label>
             <textarea name="post_content" id="post_content"></textarea>
+        </div>
+        <div class="flex tagOptions">
+            {% for tag in tags %}
+            <div>
+                <input type="checkbox" name="tag{{tag.tag_id}}" 
+                    id="tag{{tag.tag_id}}" value="{{tag.tag_id}}">
+                <label for="{{tag.tag_id}}">{{tag.tag_name}}</label>
+            </div>
+            {% endfor %}
         </div>
     </fieldset>
     <div class="flex" id="postBttnRow">
