@@ -1,7 +1,7 @@
 """Models for Blogly."""
-from codecs import backslashreplace_errors
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import functions as func
+import sqlalchemy.sql as sql
 
 db = SQLAlchemy()
 
@@ -53,29 +53,27 @@ class User(db.Model):
             new_user = User(first_name=first_name, img_url=img_url)
         else:
             new_user = User(first_name=first_name)
-            
-        # if new_user_info['img_url']:
-        #     user_img = new_user_info['img_url']
-        #     new_user = User(first_name = first_name,
-        #                     last_name = new_user_info['last_name'], 
-        #                     img_url = user_img)
-        # else:
-        #     new_user = User(first_name = new_user_info['first_name'],
-        #                     last_name = new_user_info['last_name'])
-        
         
         db.session.add(new_user)
         db.session.commit()
         
-    def edit_user(updated_info):
-        user = User.query.get_or_404(updated_info['id'])
+    def edit_user(user_id, updated_user_info):
+        user = User.query.get_or_404(user_id)
         
-        if updated_info.get('first_name'):
-            user.first_name = updated_info['first_name']
-        if updated_info.get('last_name'):
-            user.last_name = updated_info['last_name']
-        if updated_info.get('img_url'):
-            user.img_url = updated_info['img_url']
+        if updated_user_info.get('first_name'):
+            user.first_name = updated_user_info['first_name']
+            
+        # Shh
+        if updated_user_info.get('last_name') == '9999':
+            user.last_name = sql.null()
+        elif updated_user_info.get('last_name'):
+            user.last_name = updated_user_info['last_name']
+            
+        # Don't tell anyone
+        if updated_user_info.get('img_url') == '9999':
+            user.img_url = sql.null()
+        elif updated_user_info.get('img_url'):
+            user.img_url = updated_user_info['img_url']
         
         db.session.add(user)
         db.session.commit()
@@ -89,7 +87,10 @@ class User(db.Model):
         
     @property
     def full_name(self):
-        return f"{self.first_name} {self.last_name}"
+        if self.last_name:
+            return f"{self.first_name} {self.last_name}"
+        else:
+            return f"{self.first_name}"
 
 
 class Post(db.Model):
