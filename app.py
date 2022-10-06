@@ -2,7 +2,6 @@
 
 from flask import Flask, render_template, redirect, flash, session, request
 from flask_debugtoolbar import DebugToolbarExtension
-# from flask_sqlalchemy import SQLAlchemy
 from models import db, connect_db, User, Post, Tag, PostTag
 
 app = Flask(__name__)
@@ -38,25 +37,17 @@ def add_user():
 
 @app.route('/users/new', methods=['POST'])
 def create_user():
-    """Process adding new user"""
-    
-    first_name =  request.form['first_name']
-    last_name = request.form['last_name']
-    img_url = request.form['img_url']
-    
-    if img_url:
-        User.add_user(first_name, last_name, img_url)
-    else:
-        User.add_user(first_name, last_name)
-    
-    print(first_name, last_name, img_url)
+    """Process adding new user"""    
+    new_user_info = request.form
+    User.add_user(new_user_info)
+
     return redirect('/users')
     
 @app.route('/users/<user_id>')
 def get_user_details(user_id):
     """Displays details of selected user"""
+    user = User.get_user_by_id(user_id)
     
-    user = User.query.get_or_404(user_id)
     return render_template('user_details.html', user=user)
     
 @app.route('/users/<user_id>/edit')
@@ -68,13 +59,7 @@ def show_update_user_form(user_id):
 @app.route('/users/<user_id>/edit', methods=['POST'])
 def update_user(user_id):
     """Edit user information"""
-    
-    updated_user_info = {'id': user_id,
-                       'first_name': request.form['first_name'],
-                       'last_name': request.form['last_name'],
-                       'img_url': request.form['img_url']}
-    
-    User.edit_user(updated_user_info)
+    User.edit_user(user_id, request.form)
 
     return redirect('/users')
     
@@ -91,18 +76,21 @@ def delete_user(user_id: int):
 def show_new_post_form(user_id: int):
     """Display form for creating new post"""
     user = User.get_user_by_id(user_id)
-    print(user)
-    print(user.full_name)
+    tags = Tag.get_tags()
     
-    return render_template('add_post.html', user=user)
+    return render_template('add_post.html', user=user, tags=tags)
     
 @app.route('/users/<user_id>/posts/new', methods=['POST'])
 def create_post(user_id: int):
     """Actually create the post"""
-    post_title = request.form['post_title']
-    post_content = request.form['post_content']
+    # post_title = request.form['post_title']
+    # post_content = request.form['post_content']
     
-    Post.add_post(post_title, post_content, user_id)
+    # for k in request.form.keys():
+    #     print(k)
+    
+    # Post.add_post(post_title, post_content, user_id)
+    Post.add_post(user_id, request.form)
     
     return redirect(f'/users/{user_id}')
 
@@ -111,8 +99,9 @@ def show_post(post_id: int):
     """Display specified post"""
     
     post = Post.get_post(post_id)
+    tags = Post.get_tags_by_post(post_id)
     
-    return render_template('view_post.html', post=post)
+    return render_template('view_post.html', post=post, tags=tags)
 
 @app.route('/posts/<post_id>/edit')
 def show_edit_post_form(post_id):
@@ -168,11 +157,14 @@ def make_tag():
     
 @app.route('/tags/<tag_id>/edit')
 def show_edit_tag_form(tag_id):
+    tag = Tag.get_tag(tag_id)
     
-    return render_template('edit_tag.html')
+    return render_template('edit_tag.html', tag=tag)
     
 @app.route('/tags/<tag_id>/edit', methods=['POST'])
 def edit_tag(tag_id):
+    new_tag_name = request.form['new_tag_name']
+    Tag.edit_tag(tag_id, new_tag_name)
     
     return redirect(f'/tags/{tag_id}')
     
