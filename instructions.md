@@ -47,7 +47,7 @@
 
 - Make sure there are tests for at least 4 of the routes
 
-### Further Study
+### Part 1 Further Study
 
 #### Full Name Method
 
@@ -95,10 +95,10 @@
 - [x] Change user page to show posts for user
 - [x] Update broken tests and implement new ones
 
-### Further Study
+### Part 2 Further Study
 
-- [ ] Make the homepage display the 5 most recent posts
-- [ ] When listing posts, use a more readable format
+- [x] Make the homepage display the 5 most recent posts
+- [x] When listing posts, use a more readable format for the date and time
 - [ ] Add a custom 404 error page (requires research)
 - [x] Cascade deletion of user - when a user is deleted their posts should automatically be deleted also
 
@@ -106,43 +106,46 @@
 
 ### New HTML files
 
-- [ ] Add tag
-- [ ] Edit tag
-- [ ] List tags
-- [ ] Show posts by tag
+- [x] Add tag
+- [x] Edit tag
+- [x] List tags
+- [x] Show posts by tag
 
 ### Change HTML files
 
-- [ ] Show tags on post
-- [ ] Add tags to new posts (check boxes)
-- [ ] Add tags to edit posts (check boxes)
+- [x] Show tags on post
+- [x] Add tags to new posts (check boxes)
+- [x] Add tags to edit posts (check boxes)
 
 ### Add Routes
 
-- [ ] GET /tags
+- [x] GET /tags
   - Lists all tags, with links to the tag detail page.
-- [ ] GET /tags/[tag-id]
+- [x] GET /tags/[tag-id]
   - Show detail about a tag. Have links to edit form and to delete.
-- [ ] GET /tags/new
+- [x] GET /tags/new
   - Shows a form to add a new tag.
-- [ ] POST /tags/new
+- [x] POST /tags/new
   - Process add form, adds tag, and redirect to tag list.
-- [ ] GET /tags/[tag-id]/edit
+- [x] GET /tags/[tag-id]/edit
   - Show edit form for a tag.
-- [ ] POST /tags/[tag-id]/edit
+- [x] POST /tags/[tag-id]/edit
   - Process edit form, edit tag, and redirects to the tags list.
-- [ ] POST /tags/[tag-id]/delete
+- [x] POST /tags/[tag-id]/delete
   - Delete a tag
 
-### General To-Do
+### Part 3 Further Study
 
-- [ ] Prevent users without names from being created
-- [x] Finish consolidating button styles
+- [x] Keep on testing
+- [x] Let user add tags to post from create tag page
+- [x] Let user add tags to post from edit tag page
+- [x] Make user homepage displays tags on posts, too!
+- [x] Finish the other further study items from part 2
 
-### Further Study
+### Misc Notes
 
-- [ ] Keep on testing
-- [ ] Let user add tags to post from create tag page
-- [ ] Let user add tags to post from edit tag page
-- [ ] Make user homepage displays tags on posts, too!
-- [ ] Finish the other further study items from part 2
+- Make better use of CSS classes to ensure consistent styles across pages
+- Routes should only get form data, make function calls, and either render templates or redirect
+- Any logic related to modifying the DB should be in a function in models.py (or some other file)
+- Use templates for forms so you don't have to keep completely remaking slightly different variants of the same damn page
+-Make tests as you go along instead of writing them all at the end

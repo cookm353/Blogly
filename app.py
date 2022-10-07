@@ -18,13 +18,13 @@ connect_db(app)
 @app.route('/')
 def index():
     """Redirect to list of users (for now...)"""
+    posts = Post.get_all_posts()[::-1]
     
-    return redirect('/users')
+    return render_template('home.html', posts=posts)
     
 @app.route('/users')
 def show_users():
     """Show all users"""
-    
     users = User.get_all_users()
     
     return render_template('index.html', users=users)
@@ -53,8 +53,9 @@ def get_user_details(user_id):
 @app.route('/users/<user_id>/edit')
 def show_update_user_form(user_id):
     """Display form for updating user info"""
+    user = User.get_user_by_id(user_id)
     
-    return render_template('edit_user.html', id=user_id)
+    return render_template('edit_user.html', user=user)
     
 @app.route('/users/<user_id>/edit', methods=['POST'])
 def update_user(user_id):
@@ -99,17 +100,14 @@ def show_post(post_id: int):
 def show_edit_post_form(post_id):
     """Show form for editing a post"""
     post = Post.get_post(post_id)
+    tags = Tag.get_tags()
     
-    return render_template('edit_post.html', post=post)
+    return render_template('edit_post.html', post=post, tags=tags)
 
 @app.route('/posts/<post_id>/edit', methods=['POST'])
 def edit_post(post_id):
     """Actually edit the post"""    
-    new_post_info = {'id': post_id,
-                     'title': request.form['post_title'],
-                     'content': request.form['post_content']}
-    
-    Post.edit_post(new_post_info)
+    Post.edit_post(post_id, request.form)
         
     return redirect(f'/posts/{post_id}')
 

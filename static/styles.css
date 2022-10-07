@@ -42,6 +42,13 @@ button {
     color: blue;
 }
 
+/* Home Page Styles */
+
+.postAuthor {
+    font-size: 0.9em;
+    font-style: italic;
+}
+
 /* Users List Styles */
 
 /* Add User Form Styles */
@@ -140,13 +147,21 @@ form[class='flex'] {
     margin-left: 2%;
 }
 
+.tagOptions {
+    flex-direction: column;
+}
+
 /* Post Display Styles */
 #viewPostMainDiv {
     width: 40%;
 }
+#viewPostMainDiv div {
+    padding-bottom: 1px;
+}
 
 #postAuthor {
     font-style: italic;
+    margin: 0 auto;
 }
 
 #viewPostForm {
@@ -155,6 +170,42 @@ form[class='flex'] {
 
 #viewPostForm button {
     margin: 0 2%;
+}
+
+#postTagList {
+    flex-direction: row;
+    margin: 2px auto;
+    /* justify-content: space-between; */
+}
+
+#postTagList p {
+    font-weight: bold;
+}
+
+.tagHolderDiv {
+    margin: auto;
+    width: auto;
+    background-color: blue;
+    margin-left: 3px;
+    border-radius: 20%;
+}
+
+.tags {
+    /* background-color: blue; */
+    color: white;
+    border: none;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 0.8em;
+    height: max-content;
+    /* width: 16px; */
+    margin: auto 2px;
+    /* margin-left: 4px; */
+}
+
+.tags > a {
+    color: white;
+    text-decoration: none;
 }
 
 /* Edit Post Styles */

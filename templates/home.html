@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Blogly{% endblock %}
+
+{% block content %}
+    <h1>Blogly Recent Posts</h1>
+    {% for post in posts[:3] %}
+        <h2>{{post.title}}</h2>
+        <p class="postContent">{{post.content}}</p>
+        <p class="postAuthor">By {{post.user.full_name}} on {{post.timestamp}}</p>
+        <div class="flex" id="postTagList">
+            <p>Tags:</p>
+            <div class="flex" id="tagList">
+                {% for tag in post.tag %}
+                <div class="tagHolderDiv">
+                    <p class="tags"><a href="/tags/{{tag.tag_id}}">{{tag.tag_name}}</a></p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

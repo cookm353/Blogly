@@ -38,7 +38,6 @@ class User(db.Model):
     
     @staticmethod
     def add_user(new_user_info):
-    # def add_user(first_name: str, last_name: str, *img_url: str):
         """Method for adding users to database"""
         first_name = new_user_info['first_name']
         last_name = new_user_info.get('last_name', None)
@@ -117,32 +116,47 @@ class Post(db.Model):
     def __repr__(self):
         return f"<Post id={self.post_id} title={self.title} author={self.user.full_name}>"
     
-    def add_post(title, content, user_id):
+    def add_post(user_id, post_info):
+        title = post_info['post_title']
+        content = post_info['post_content']
+        
         new_post = Post(title=title, content=content, user_id=user_id)
         db.session.add(new_post)
         db.session.commit()
+        
+        post_id = Post.query.filter(title==title and user_id==user_id).all()[-1].post_id
+        
+        for k, v in post_info.items():
+            if 'tag' in k:
+                PostTag.add_posttag(post_id, v)
+                
         
     def delete_post(post_id):
         Post.query.filter_by(post_id=post_id).delete()
         db.session.commit()
         
-    def edit_post(new_details):
-        post = Post.query.get_or_404(new_details['id'])
+    def edit_post(post_id, new_details):
+        post = Post.query.get_or_404(post_id)
         
-        if new_details.get('title'):
-            post.title = new_details['title']
-        if new_details.get('content'):
-            post.content = new_details['content']
+        for k, v in new_details.items():        
+            if k == 'post_title' and v != '':
+                post.title = new_details['post_title']
+            if k == 'post_content' and v != '':
+                post.content = new_details['post_content']
+            if 'tag' in k:
+                PostTag.add_posttag(post_id, v)
             
         db.session.add(post)
-        db.session.commit()          
+        db.session.commit()
         
     def get_post(post_id):
         return Post.query.get(post_id)
     
+    def get_all_posts():
+        return Post.query.all()
+    
     def get_tags_by_post(post_id):
         tags = Post.query.get_or_404(post_id).tag
-        print(tags[0].tag_name)
         
         return tags
     
@@ -213,3 +227,13 @@ class PostTag(db.Model):
                                                  onupdate='CASCADE',
                                                  ondelete='CASCADE'),
                        primary_key=True)
+    
+    def add_posttag(post_id, tag_id):
+        # First check if the posttag exists
+        row_exists = PostTag.query.filter(post_id == post_id and tag_id == tag_id).count()
+        
+        if not row_exists:
+            posttag = PostTag(post_id=post_id, tag_id=tag_id)
+            db.session.add(posttag)
+            db.session.commit()
+        
